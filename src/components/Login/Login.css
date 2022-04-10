@@ -40,32 +40,37 @@
     border: none;
     background: rgba(255, 153, 0, 0.3);
     border-radius: 5px;
-    
+    cursor: pointer;
+
 }
-.create-ac-link{
+
+.create-ac-link {
     text-decoration: none;
 }
-.or-div{
+
+.or-div {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.div-1{
+
+.div-1 {
     width: 30%;
     margin-right: 10px;
 }
-.div-2{
+
+.div-2 {
     width: 30%;
     margin-left: 10px;
 }
 
-.continue-google{
+.continue-google {
     border: 2px solid #95a0a7;
     border-radius: 5px;
     padding: 10px;
     margin: 30px 0px;
     text-align: center;
-    color:blueviolet;
+    color: blueviolet;
     font-weight: 500;
     cursor: pointer;
 }

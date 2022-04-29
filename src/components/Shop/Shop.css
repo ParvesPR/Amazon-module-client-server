@@ -18,6 +18,10 @@
     width: 50%;
     margin: auto;
 }
+.pagination .selected{
+    background: blue;
+    color:white;
+}
 
 .pagination button {
     margin: 20px 10px;

@@ -7,9 +7,17 @@ import Product from '../Product/Product';
 import './Shop.css';
 
 const Shop = () => {
-    const [products] = useProducts();
     const [cart, setCart] = useState([]);
     const [pageCount, setPageCount] = useState(0);
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(10)
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/product?page=${page}&size${size}`)
+            .then(res => res.json())
+            .then(data => setProducts(data))
+    }, []);
 
     useEffect(() => {
         fetch('http://localhost:5000/productCount')
@@ -62,7 +70,7 @@ const Shop = () => {
                         </Product>)
                 }
             </div>
-            
+
             <div className="cart-container">
                 <Cart cart={cart}>
                     <Link to="/orders">
@@ -71,12 +79,20 @@ const Shop = () => {
                 </Cart>
             </div>
             <div className='pagination'>
-                    {
-                        [...Array(pageCount).keys()]
-                        .map(numbers => <button>{
-                            numbers}</button>)
-                    }
-                </div>
+                {
+                    [...Array(pageCount).keys()]
+                        .map(number => <button
+                            className={page === number ? 'selected' : ''}
+                            onClick={() => setPage(number)}
+                        >{number}</button>)
+                }
+                <select className='select' onChange={e => setSize(e.target.value)}>
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
         </div>
     );
 };

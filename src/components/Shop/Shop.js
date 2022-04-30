@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useProducts from '../../hooks/useProducts';
+import useCart from '../../hooks/useCart';
 import { addToDb, getStored } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 
 const Shop = () => {
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useCart();
     const [pageCount, setPageCount] = useState(0);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10)
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/product?page=${page}&size${size}`)
+        fetch(`http://localhost:5000/product?page=${page}&size=${size}`)
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, []);
+    }, [page, size]);
 
     useEffect(() => {
         fetch('http://localhost:5000/productCount')
@@ -27,21 +27,7 @@ const Shop = () => {
                 const pages = Math.ceil(count / 10);
                 setPageCount(pages);
             });
-    }, [])
-
-    useEffect(() => {
-        const newStored = getStored();
-        const saveCart = [];
-        for (const id in newStored) {
-            const addedProduct = products.find(product => product._id === id);
-            if (addedProduct) {
-                const quantity = newStored[id];
-                addedProduct.quantity = quantity;
-                saveCart.push(addedProduct);
-            }
-        }
-        setCart(saveCart);
-    }, [products]);
+    }, []);
 
     const addToCart = (selectedProduct) => {
         let newCart = []

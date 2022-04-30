@@ -8,7 +8,7 @@ import OrderItems from '../OrderItems/OrderItems';
 
 const Orders = () => {
     const [products] = useProducts();
-    const [cart, setCart] = useCart(products);
+    const [cart, setCart] = useCart();
 
     const handleRemoveCart = product => {
         const rest = cart.filter(cartProduct => cartProduct._id !== product._id)
